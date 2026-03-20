@@ -1,4 +1,12 @@
-FROM nginx:alpine
+FROM node:20-alpine
 
-COPY nginx.conf /etc/nginx/nginx.conf
-COPY public /usr/share/nginx/html
+WORKDIR /app
+
+COPY package.json ./
+RUN npm install --production
+
+COPY . .
+
+EXPOSE 8080
+
+CMD ["node", "src/index.js"]
